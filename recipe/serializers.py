@@ -37,3 +37,12 @@ class LoginSerializer(serializers.ModelSerializer):
       class Meta:
         model = User,
         fields = ["username", "password"] 
+class CategorySerializer(serializers.ModelSerializer):
+      class Meta:
+            model = Category
+            fields = '__all__'
+class RecipeSerializer(serializers.ModelSerializer):
+      category=CategorySerializer(many=True,read_only=True)
+      class Meta:
+            model=Recipe
+            fields="__all__"

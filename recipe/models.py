@@ -36,3 +36,40 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+
+class Category(models.Model):
+    name=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+    def save_category(self):
+        self.save()
+    def delete_category(self):
+        self.delete()
+
+class Recipe(models.Model):
+    name=models.CharField(max_length=50)
+    food_pic=CloudinaryField("image")
+    ingredient=models.TextField()
+    time_prep=models.CharField(max_length=50)
+    process=models.TextField()
+    date=models.DateTimeField(auto_now_add=True)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
+    user=models.ForeignKey(Profile,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
+    def save_recipe(self):
+        self.save()
+    def delete_recipe(self):
+        self.delete()
+    @classmethod
+    def find_recipe(cls,name):
+        return cls.objects.filter(name__icontains=name)
+
+    @classmethod
+    def update_recipe(cls,id,name):
+        update = cls.objects.filter(id=id).update(name=name)
+        return update
