@@ -17,6 +17,7 @@ from .serializers import *
 def welcome(request):
     return HttpResponse('Welcome to the Moringa Tribune')
 
+# Register User
 class Registration(APIView):
     serializer_class=UserSerializer
 
@@ -55,7 +56,9 @@ class Login(APIView):
                 }
             }
             return Response(response, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)  
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+#Category Views 
 
 class  CategoryList(generics.ListCreateAPIView):
     def get_category(self, pk):
@@ -102,7 +105,7 @@ class CategoryPostList(generics.ListCreateAPIView):
                 'data':{
                     'Category':dict(category),
                     'status':'success',
-                    'message':'neighborhood created successfully',
+                    'message':'Category created successfully',
                 }
             }
             return Response(response,status=status.HTTP_200_OK)
@@ -113,5 +116,65 @@ class CategoryDetailList(APIView):
    def get(self,request,format=None):
        category=Category.objects.all()
        serializers=CategorySerializer(category,many=True)
+       return Response(serializers.data)
+
+#Recipe Views
+
+class  RecipeList(generics.ListCreateAPIView):
+    def get_recipe(self, pk):
+        try:
+            return Recipe.objects.get(pk=pk)
+        except Recipe.DoesNotExist:
+            return Http404 
+   
+    def get(self,request,pk,format=None):
+        recipe=self.get_recipe(pk)
+        serializers=RecipeSerializer(recipe)
+        return Response(serializers.data)
+
+    def put(self, request, pk, format=None):
+        recipe=self.get_recipe(pk)
+        serializers=RecipeSerializer(recipe,request.data)
+        if serializers.is_valid():
+            serializers.save()
+            recipe=serializers.data
+            response = {
+                     'data': {
+                     'Recipe': dict(recipe),
+                     'status': 'success',
+                    'message': 'Recipe updated successfully',
+                 }
+             }
+            return Response(response)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        recipe=self.get_recipe(pk)
+        recipe.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class RecipePostList(generics.ListCreateAPIView):
+
+    def post(self,request,format=None):
+        serializers=RecipeSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            recipe=serializers.data
+            response={
+                'data':{
+                    'Category':dict(recipe),
+                    'status':'success',
+                    'message':'Recipe created successfully',
+                }
+            }
+            return Response(response,status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RecipeDetailList(APIView):
+   def get(self,request,format=None):
+       recipe=Recipe.objects.all()
+       serializers=RecipeSerializer(recipe,many=True)
        return Response(serializers.data)
 

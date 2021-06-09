@@ -19,7 +19,12 @@ urlpatterns=[
     path('api/category/get/<int:pk>/', views.CategoryList.as_view(), name='category_get'),
 
     #Recipes
-    
+    path('api/recipes/', views.RecipeDetailList.as_view(), name='recipe'),
+    path('api/recipe/post/',views.RecipePostList.as_view(), name ='recipe_post'),
+    path('api/recipe/update/<int:pk>/', views.RecipeList.as_view(), name='recipe_update'),
+    path('api/recipe/delete/<int:pk>/', views.RecipeList.as_view(), name='recipe_delete'),
+    path('api/recipe/get/<int:pk>/', views.RecipeList.as_view(), name='recipe_get'),
+
 
 
 
