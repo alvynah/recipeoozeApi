@@ -178,3 +178,39 @@ class RecipeDetailList(APIView):
        serializers=RecipeSerializer(recipe,many=True)
        return Response(serializers.data)
 
+# Profile View
+class ProfileList(generics.ListCreateAPIView):
+    def get_profile(self,pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            raise Http404()
+    
+    
+    def get(self,request,pk,format=None):
+        profiles=self.get_profile(pk)
+        serializers=ProfileSerializer(profiles)
+        return Response(serializers.data)
+
+    def put(self,request,pk,format=None):
+        profiles=self.get_profile(pk)
+        serializers=ProfileSerializer(profiles,request.data)
+        if serializers.is_valid():
+            serializers.save()
+            profiles_list=serializers.data
+            response = {
+                        'data': {
+                        'users': dict(profiles_list),
+                        'status': 'success',
+                        }
+                     }
+            return Response(response, status=status.HTTP_200_OK)
+        else:
+            return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
+class ProfileDetailsList(APIView):
+    def get(self,request,format=None):
+        profiles=Profile.objects.all()
+        serializers=ProfileSerializer(profiles,many=True)
+        return Response(serializers.data)
+

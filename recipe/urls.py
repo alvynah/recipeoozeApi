@@ -25,7 +25,10 @@ urlpatterns=[
     path('api/recipe/delete/<int:pk>/', views.RecipeList.as_view(), name='recipe_delete'),
     path('api/recipe/get/<int:pk>/', views.RecipeList.as_view(), name='recipe_get'),
 
-
+    # profile
+    path('api/profile/', views.ProfileDetailsList.as_view(), name='profiles'),
+    path('api/profile/update/<int:pk>/', views.ProfileList.as_view(), name='profiles_update'),
+    path('api/profiles/get/<int:pk>/', views.ProfileList.as_view(), name='profiles_get'),
 
 
 

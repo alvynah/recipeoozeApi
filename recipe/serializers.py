@@ -46,3 +46,8 @@ class RecipeSerializer(serializers.ModelSerializer):
       class Meta:
             model=Recipe
             fields="__all__"
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        exclude = ['user']
