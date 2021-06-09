@@ -55,4 +55,63 @@ class Login(APIView):
                 }
             }
             return Response(response, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)   
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)  
+
+class  CategoryList(generics.ListCreateAPIView):
+    def get_category(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Http404 
+   
+    def get(self,request,pk,format=None):
+        category=self.get_category(pk)
+        serializers=CategorySerializer(category)
+        return Response(serializers.data)
+
+    def put(self, request, pk, format=None):
+        category=self.get_category(pk)
+        serializers=CategorySerializer(category,request.data)
+        if serializers.is_valid():
+            serializers.save()
+            category=serializers.data
+            response = {
+                     'data': {
+                     'Category': dict(category),
+                     'status': 'success',
+                    'message': 'Category updated successfully',
+                 }
+             }
+            return Response(response)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        category=self.get_category(pk)
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CategoryPostList(generics.ListCreateAPIView):
+
+    def post(self,request,format=None):
+        serializers=CategorySerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            category=serializers.data
+            response={
+                'data':{
+                    'Category':dict(category),
+                    'status':'success',
+                    'message':'neighborhood created successfully',
+                }
+            }
+            return Response(response,status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CategoryDetailList(APIView):
+   def get(self,request,format=None):
+       category=Category.objects.all()
+       serializers=CategorySerializer(category,many=True)
+       return Response(serializers.data)
+
