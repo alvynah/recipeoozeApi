@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http  import HttpResponse
 from django.contrib.auth.models import Permission
@@ -15,6 +16,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import requests
 
 
 
@@ -22,11 +24,27 @@ from django.contrib.auth import logout
 
 
 # Create your views here.
+@login_required()
 def welcome(request):
     recipes=Recipe.objects.all()
     users = User.objects.exclude(id=request.user.id)
+    if request.method=='POST':
+        form=UploadRecipeForm(request.POST,request.FILES)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.user=request.user.profile
+            post.save()
+
+
+            return HttpResponseRedirect(request.path_info)
+
+    else:
+        form=UploadRecipeForm()
+    response =requests.get('https://my-bao-server.herokuapp.com/api/allbreadpuns')
+    puns =response.json()
+    return render(request, 'recipe/index.html',{'recipes':recipes,'form':form,'users':users,'puns':puns})
+
    
-    return render(request, 'recipe/index.html',{'recipes':recipes,'users':users,})
 
 def user_profile(request, username):
    current_user = request.user
@@ -69,6 +87,44 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request,"welcome.html")
+
+
+def profile(request, username):
+    current_user = request.user.profile
+
+    profile=Profile.objects.get(user=current_user.user)
+    recipes=request.user.profile.recipe.all()
+    if request.method == 'POST':
+      user_form = UserUpdateForm(request.POST, instance=request.user)
+      profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+      if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.profile=profile
+            user.profile = request.user.profile
+            user.save()
+
+            prof = profile_form.save(commit=False)
+            prof.profile=profile
+            prof.profile = request.user.profile
+            prof.save() 
+
+
+            return HttpResponseRedirect(request.path_info)
+    else:
+      user_form = UserUpdateForm(instance=request.user)
+      profile_form = UserProfileForm(instance=request.user.profile)
+
+    
+    params = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'recipes': recipes,
+
+        }
+    return render(request, 'recipe/profile.html', params)
+
+
+
 
 ##API endpoint##
 
@@ -275,3 +331,16 @@ class ProfileDetailsList(APIView):
         serializers=ProfileSerializer(profiles,many=True)
         return Response(serializers.data)
 
+@login_required
+def search_results(request):
+    recipes=Recipe.objects.all()
+
+    if 'search_profile' in request.GET and request.GET["search_profile"]:
+        search_term = request.GET.get("search_profile")
+        searched_profiles = Recipe.search_profile(search_term)
+        print(searched_profiles)
+        message = f"{search_term}"
+        return render(request, 'recipe/search.html', {"message":message,"profiles": searched_profiles})
+    else:
+        message = "You haven't searched for any recipe"
+    return render(request, 'recipe/search.html', {'message': message,'recipes':recipes})

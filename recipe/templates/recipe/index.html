@@ -1,40 +1,66 @@
 {% extends 'recipe/base.html' %}{% load crispy_forms_tags %} {% block content %}{{block.super}}
-<div class="row mt-5">
 
+<div class="col-md-6">
+    <div class="row" style="background-color:white;">
+        <button class="btn uploadButton ml-4 mb-3 mt-4" data-toggle="modal" data-target="#imageUpload">
+			Post Recipe
+		</button>
+        <div class="modal fade" id="imageUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Post Recipe</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    </div>
+                    <div class="modal-body uploadForm">
+                        <form action="" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %} {{ form|crispy }}
+                            <button class="btn btn-sm btn-success">Post</button>
 
-    {%for post in recipes%}
-    <div class="card mb-4">
-
-        <div class="card-img">
-            <img src="{{post.food_pic.url}}" class="card-img recipeimg">
-
-        </div>
-        <div class="card-body">
-            <div>
-                <span style="float:left"> <strong>{{post.name|title}} category:  {{post.category.name}}</strong></span>
-                <span style="float:right"><strong> {{post.time_prep}} to prepare meal</strong></span>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <h1 class="text-center">Ingredients</h1>
-                <p class="text-center">{{post.ingredient}}</p>
-
-                <h1 class="text-center">Procedure:</h1>
-                <p class="text-center">{{post.process}}</p>
-            </div>
-
         </div>
-        <div class="card-footer">
-            <span style="float:left">
+    </div>
+    <div class="row mt-5">
+
+
+        {%for post in recipes%}
+        <div class="card mb-4">
+
+            <div class="card-img">
+                <img src="{{post.food_pic.url}}" class="card-img recipeimg">
+
+            </div>
+            <div class="card-body">
+                <div>
+                    <span style="float:left"> <strong>{{post.name|title}} category:  {{post.category.name}}</strong></span>
+                    <span style="float:right"><strong> {{post.time_prep}} to prepare meal</strong></span>
+                </div>
+
+                <div>
+                    <h1 class="text-center">Ingredients</h1>
+                    <p class="text-center">{{post.ingredient}}</p>
+
+                    <h1 class="text-center">Procedure:</h1>
+                    <p class="text-center">{{post.process}}</p>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <span style="float:left">
 		<a href="{% url 'user_profile' post.user.user.username  %}" class="mt-4 user">
 		<img src="{{post.user.user.profile.prof_pic.url}}" class="rounded-circle border ml-3 mt-2  mr-3" alt="{{prof_pic.user.user.username}}" width="35" height="35">
 
 			<span style="color:black;font-weight:bold">
 					{{post.user.user.username|title}}</span></a>
-            </span>
-            <span style="float:right;"> Posted: {{post.date|date}}</span>
+                </span>
+                <span style="float:right;"> Posted: {{post.date|date}}</span>
 
-            <p class="text-muted ml-5 mr-3" style="font-style: italic;">#{{post.name}}</p>
-        </div>
+                <p class="text-muted ml-5 mr-3" style="font-style: italic;">#{{post.name}}</p>
+            </div>
 
-    </div> {%endfor%} {%endblock%}
+        </div> {%endfor%} {%endblock%}

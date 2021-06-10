@@ -7,7 +7,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 urlpatterns=[
     path('',views.welcome,name='welcome'),
     path('signup/', views.signup_view, name='signup'),
+    path('profile/<username>/', views.profile, name='profile'),
     path('user_profile/<username>/', views.user_profile, name='user_profile'),
+    re_path(r'^search/', views.search_results,name='search_results'),
+
 
 
 

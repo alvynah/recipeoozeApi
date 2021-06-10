@@ -58,6 +58,12 @@ class Recipe(models.Model):
     category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
     user=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='recipe')
 
+    class Meta:
+        '''
+        Class method to display images by date published
+        '''
+        ordering = ["-pk"]
+
     def __str__(self):
         return self.name
     
@@ -73,3 +79,10 @@ class Recipe(models.Model):
     def update_recipe(cls,id,name):
         update = cls.objects.filter(id=id).update(name=name)
         return update
+    @classmethod
+    def get_recipe_by_id(cls,name):
+        recipe=Recipe.objects.filter(name=name)
+        return recipe
+    @classmethod
+    def search_profile(cls, search_term):
+        return cls.objects.filter(ingredient__icontains=search_term).all()

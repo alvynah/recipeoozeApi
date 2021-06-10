@@ -12,6 +12,16 @@
             </li>
 
         </ul>
+        <form class="mb-0 ml-auto mr-auto" id="searchform" action="{% url 'search_results' %}" role="search">
+
+            <div class="input-group">
+                <input class="form-control py-2 border-right-0  border text-center" type="search" placeholder="search" id="searching" name="search_profile">
+                <span class="input-group-append">
+				<button class="input-group-text bg-transparent border-left-0 sm" type="submit"><i
+						class="fa fa-search "></i></button>
+			</span>
+            </div>
+        </form>
 
         <ul class="navbar-nav ml-auto">
 
@@ -21,7 +31,7 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-user"></i>&nbsp;<strong>{{user.username}}</strong> </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href=""><i
+                    <a class="dropdown-item" href=" {%url 'profile' user.username %}"><i
 							class="far fa-user"></i>&nbsp; My account</a>
                     <a class="dropdown-item" href="/logout"><i
 							class="fas fa-sign-out-alt"></i>&nbsp; Log out</a>

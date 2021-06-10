@@ -1,0 +1,27 @@
+{%extends 'recipe/base.html'%} {% block content %} {{block.super}}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+    <div class="heading">
+        {% if profiles%}
+        <h5 class="text-center">Found {{ profiles|length }} recipes with ingredient '{{message.capitalize}}'
+        </h5> {%else%}
+        <h5> Found 0 recipes with ingredient {{message}} </h5>
+        {% endif %}
+    </div>
+    <hr>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xs-3 mt-3">
+            {%for recipe in profiles%}
+            <p> recipe: {{recipe.name}}</p>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+</div>
+{% endblock %}
