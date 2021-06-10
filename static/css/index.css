@@ -1,4 +1,66 @@
 .recipeimg {
-    height: 500px;
+    height: 300px;
     width: 100%;
+}
+
+.headerArea {
+    background-image: url('../images/wallpaperPlatter.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    text-align: center;
+    color: white;
+    padding-top: 5%;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+html,
+body {
+    scroll-behavior: smooth;
+    background-color: whitesmoke;
+}
+
+.headerDetails {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 3%;
+    border-radius: 3%;
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+}
+
+.punDetails {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 3%;
+    margin-top: 5%;
+    border-radius: 3%;
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+    font-weight: 800;
+}
+
+.uploadButton {
+    background-color: rgba(245, 82, 7, 0.8);
+    border-radius: 3%;
+}
+
+.myCards {
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.modal-full {
+    min-width: 80%;
+    margin: 10%;
+    margin-top: 4% !important;
+}
+
+.modal-full .modal-content {
+    min-height: 60vh;
+}
+
+.modal {
+    background-color: rgb(255, 255, 255, 0.8)
 }

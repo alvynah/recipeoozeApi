@@ -40,7 +40,7 @@ def welcome(request):
 
     else:
         form=UploadRecipeForm()
-    response =requests.get('https://api.kanye.rest')
+    response =requests.get('https://official-joke-api.appspot.com/random_joke')
     puns =response.json()
     return render(request, 'recipe/index.html',{'recipes':recipes,'form':form,'users':users,'puns':puns})
 

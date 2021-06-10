@@ -1,10 +1,8 @@
 nav {
-    margin-top: 0.5%;
-    background-color: rgba(236, 16, 101, 0.8);
+    background-color: rgb(210, 105, 30);
     font-family: 'display';
     color: black;
-    margin-left: 0.2%;
-    margin-right: 0.2%;
+    top: 0;
 }
 
 .navbar-brand {
@@ -38,7 +36,7 @@ a.dropdown-item:hover {
 }
 
 a.nav-link:hover {
-    background-color: rgba(236, 16, 101) !important;
+    background-color: chocolate !important;
 }
 
 a.nav-link {

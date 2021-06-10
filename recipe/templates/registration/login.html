@@ -1,17 +1,28 @@
 {% extends 'registration/base.html' %} {% block content %} {% load static %}
+<div class="login">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="">
+                <div class="card-body loginForm">
+                    <form action="{% url 'login' %}" method="post" novalidate>
+                        {% csrf_token%} {{ form}}
+                        <button type="submit" class="btn"> Log In</button>
+                    </form>
+                    <p class="text-center signup">
+                        Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
+                    </p>
+                </div>
 
-<div class="card-body loginForm">
-    <form action="{% url 'login' %}" method="post" novalidate>
-        {% csrf_token%} {{ form}}
-        <button type="submit" class="btn"> Log In</button>
-    </form>
-</div>
-<a href="" class="D-block mx-auto mb-3">Forgot password? </a>
-</div>
-<div class="card mt-2">
-    <div class="card-body mt-3 mb-3">
-        <p class="text-center">
-            Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
-        </p>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+
     </div>
-    {% endblock %}
+
+</div>
+
+
+
+{% endblock %}

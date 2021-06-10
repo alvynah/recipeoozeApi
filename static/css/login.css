@@ -1,0 +1,76 @@
+.login {
+    background-image: url('../images/wallpaper1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    text-align: center;
+    color: white;
+    padding-top: 5%;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+.loginForm form {
+    margin-top: 5%;
+    width: 100%;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: rgba(245, 82, 7, 0.6);
+    box-shadow: 0 0 20px 0 grey;
+    float: center;
+    margin-bottom: 2%;
+    align-items: center;
+    font-size: 16px;
+    font-style: bold;
+}
+
+.loginForm label {
+    font-style: italic;
+}
+
+.loginForm input {
+    border: 1px solid #bdbdbd !important;
+    border-radius: 5px;
+}
+
+.loginForm input:hover {
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+}
+
+.loginForm input:focus {
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+}
+
+.loginForm .btn {
+    background-color: rgba(245, 82, 7, 0.8);
+    padding: 20px !important;
+}
+
+.loginForm .help-block {
+    color: red;
+    text-align: center;
+}
+
+.alert li {
+    color: red;
+}
+
+.form-control:hover,
+.form-check-label:hover,
+input:hover::placeholder {
+    color: chocolate;
+}
+
+.form-group input:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 0 6px 0 chocolate;
+    color: chocolate;
+}
+
+.signup {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 3%;
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+}
