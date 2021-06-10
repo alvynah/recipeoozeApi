@@ -1,0 +1,25 @@
+{% extends 'recipe/base.html' %}{% load crispy_forms_tags %} {% block content %}{{block.super}}
+<div class="row mt-5">
+
+
+    {%for post in recipes%}
+    <div class="card mb-4">
+        <div class="card-header">
+            <img src="{{post.user.prof_pic.url}}" class="rounded-circle border ml-3 mt-2  mr-3" alt="{{image.user.user.username}}" width="35" height="35">
+            <a href="" class="mt-4 user"><span style="color:black;font-weight:bold">
+					{{post.user.user.username|title}}</span></a>
+            <p class="text-muted ml-5 mr-3" style="font-style: italic;">#{{post.name}}</p>
+        </div>
+        <div class="card-body">
+            <img src="{{post.food_pic.url}}" class="card-img" style="width:100%;height:600px;">
+            <p class="text-muted text-center">{{post.time_prep}}<br><span style="font-size:7px;"> Posted:
+					{{post.date}}</span><br>
+                <span class="likeCommentButton ml-4 text-centre">
+					
+
+				</span>
+            </p>
+
+
+        </div>
+        {%endfor%} {%endblock%}

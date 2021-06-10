@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework.authtoken',
     'corsheaders',
+    'crispy_forms',
+    'bootstrap4',
+    
 
 
 ]
@@ -123,6 +126,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+LOGIN_REDIRECT_URL = 'welcome'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

@@ -6,9 +6,14 @@ from rest_framework.authtoken.views import ObtainAuthToken
 
 urlpatterns=[
     path('',views.welcome,name='welcome'),
+    path('signup/', views.signup_view, name='signup'),
+
+
+
+    #Endpoint Apis#
     #Authentication
-    path('register/', views.Registration.as_view(), name="register"),
-    path('login/', views.Login.as_view(), name="login"),
+    path('api/register/', views.Registration.as_view(), name="register"),
+    path('api/login/', views.Login.as_view(), name="login"),
     path('authlogin/', ObtainAuthToken.as_view(), name="authlogin"),
 
     #CategoryApis

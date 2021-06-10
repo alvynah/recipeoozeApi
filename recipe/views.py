@@ -10,12 +10,52 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
+from .forms import *
+from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+
 
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def welcome(request):
-    return HttpResponse('Welcome to the Moringa Tribune')
+    recipes=Recipe.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+   
+    return render(request, 'recipe/index.html',{'recipes':recipes,'users':users,})
+   
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+
+            name=form.cleaned_data['fullname']
+            email=form.cleaned_data['email']
+            user = authenticate(username=username, password=password)
+ 
+
+            login(request, user)
+
+
+            return redirect('welcome')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+def logout_view(request):
+    logout(request,"welcome.html")
+
+##API endpoint##
 
 # Register User
 class Registration(APIView):
