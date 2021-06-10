@@ -1,0 +1,40 @@
+{%load static%}
+
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark nav-info-dark ">
+    <a class="navbar-brand" href="/"><strong>Recipe Ooze</strong> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Home</a>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+            {% if user.is_authenticated %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-user"></i>&nbsp;<strong>{{user.username}}</strong> </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href=""><i
+							class="far fa-user"></i>&nbsp; My account</a>
+                    <a class="dropdown-item" href="/logout"><i
+							class="fas fa-sign-out-alt"></i>&nbsp; Log out</a>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'login' %}" style='margin-right:30px'><i
+						class="fas fa-sign-in-alt"></i>&nbsp; <strong>Log In</strong></a>
+            </li>
+
+            {%endif%}
+
+        </ul>
+    </div>
+</nav>

@@ -22,12 +22,27 @@ from django.contrib.auth import logout
 
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
 def welcome(request):
     recipes=Recipe.objects.all()
     users = User.objects.exclude(id=request.user.id)
    
     return render(request, 'recipe/index.html',{'recipes':recipes,'users':users,})
+
+def user_profile(request, username):
+   current_user = request.user
+   user_profile = get_object_or_404(User, username=username)
+   if request.user == user_profile:
+        return redirect('profile', username=request.user.username)
+   
+   recipes=user_profile.profile.recipe.all()
+   
+   params = {
+        'recipes': recipes,
+        'user_profile':user_profile,
+
+    }
+   return render(request, 'recipe/user_profile.html', params)
+ 
    
 
 def signup_view(request):
@@ -47,7 +62,7 @@ def signup_view(request):
             login(request, user)
 
 
-            return redirect('welcome')
+            return redirect('login')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})

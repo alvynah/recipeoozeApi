@@ -7,6 +7,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 urlpatterns=[
     path('',views.welcome,name='welcome'),
     path('signup/', views.signup_view, name='signup'),
+    path('user_profile/<username>/', views.user_profile, name='user_profile'),
+
 
 
 

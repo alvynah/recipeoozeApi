@@ -56,7 +56,7 @@ class Recipe(models.Model):
     process=models.TextField()
     date=models.DateTimeField(auto_now_add=True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
-    user=models.ForeignKey(Profile,on_delete=models.CASCADE)
+    user=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='recipe')
 
     def __str__(self):
         return self.name
