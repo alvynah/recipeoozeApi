@@ -40,7 +40,7 @@ def welcome(request):
 
     else:
         form=UploadRecipeForm()
-    response =requests.get('https://my-bao-server.herokuapp.com/api/allbreadpuns')
+    response =requests.get('https://api.kanye.rest')
     puns =response.json()
     return render(request, 'recipe/index.html',{'recipes':recipes,'form':form,'users':users,'puns':puns})
 
