@@ -24,6 +24,7 @@ urlpatterns=[
     path('api/recipe/update/<int:pk>/', views.RecipeList.as_view(), name='recipe_update'),
     path('api/recipe/delete/<int:pk>/', views.RecipeList.as_view(), name='recipe_delete'),
     path('api/recipe/get/<int:pk>/', views.RecipeList.as_view(), name='recipe_get'),
+    path('api/recipe/search/<ingredient>',views.RecipeSearchList.as_view(), name='recipe_search'),
 
     # profile
     path('api/profile/', views.ProfileDetailsList.as_view(), name='profiles'),

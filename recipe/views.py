@@ -178,6 +178,12 @@ class RecipeDetailList(APIView):
        serializers=RecipeSerializer(recipe,many=True)
        return Response(serializers.data)
 
+class RecipeSearchList(APIView):
+    def get(self,request,ingredient):
+        recipe=Recipe.find_recipe(ingredient)
+        serializers=RecipeSerializer(recipe, many=True)
+        return Response(serializers.data)
+
 # Profile View
 class ProfileList(generics.ListCreateAPIView):
     def get_profile(self,pk):

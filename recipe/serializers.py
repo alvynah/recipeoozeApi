@@ -42,12 +42,25 @@ class CategorySerializer(serializers.ModelSerializer):
             model = Category
             fields = '__all__'
 class RecipeSerializer(serializers.ModelSerializer):
-      category=CategorySerializer(many=True,read_only=True)
+
       class Meta:
             model=Recipe
             fields="__all__"
+     
+      def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['category'] = CategorySerializer(instance.category).data
+        return response
+      
+
+      
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user=serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
-        exclude = ['user']
+        fields="__all__"
+    @classmethod
+    def get_user(self,cls):
+      return cls.user.username

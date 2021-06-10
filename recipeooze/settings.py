@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     'recipe',
     'rest_framework',
     'cloudinary',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
 
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,6 +60,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8081',
+)
 
 ROOT_URLCONF = 'recipeooze.urls'
 
@@ -88,6 +95,8 @@ DATABASES = {
         'NAME': 'recipe',
         'USER': 'cocoh',
         'PASSWORD': 'kitkAt10',
+        'HOST': '127.0.0.1',
+        'PORT': 5432,
     }
 }
 

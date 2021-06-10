@@ -66,8 +66,8 @@ class Recipe(models.Model):
     def delete_recipe(self):
         self.delete()
     @classmethod
-    def find_recipe(cls,name):
-        return cls.objects.filter(name__icontains=name)
+    def find_recipe(cls,ingredient):
+        return cls.objects.filter(ingredient__icontains=ingredient)
 
     @classmethod
     def update_recipe(cls,id,name):
