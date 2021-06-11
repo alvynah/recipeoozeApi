@@ -13,25 +13,24 @@
 }
 
 .loginForm form {
-    margin-top: 5%;
+    margin-top: 1%;
     width: 100%;
-    padding: 20px;
+    padding: 5px;
     border-radius: 6px;
-    background-color: rgba(245, 82, 7, 0.6);
-    box-shadow: 0 0 20px 0 grey;
-    float: center;
+    background-color: transparent;
+    box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+    float: left;
     margin-bottom: 2%;
-    align-items: center;
-    font-size: 16px;
-    font-style: bold;
 }
 
 .loginForm label {
     font-style: italic;
+    float: left;
 }
 
 .loginForm input {
     border: 1px solid #bdbdbd !important;
+    color: chocolate;
     border-radius: 5px;
 }
 
@@ -73,4 +72,8 @@ input:hover::placeholder {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 3%;
     box-shadow: 0 0 20px 0 rgba(245, 82, 7, 0.8);
+}
+
+.helptext {
+    display: none;
 }

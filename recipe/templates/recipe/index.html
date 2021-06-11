@@ -50,7 +50,7 @@
 
 
     {%for post in recipes%}
-    <div class="card mb-4 " style="width: 26rem;" data-toggle="modal" data-target="#{{post.id}}">
+    <div class="card mb-4 " style="width: 22rem;" data-toggle="modal" data-target="#{{post.id}}">
         <div class="card-header">
             <span style="float:left"> <strong>{{post.name|title}} </strong></span>
             <span style="float:right"><strong>  Category: {{post.category}} </strong></span>
@@ -98,7 +98,7 @@
                         <div class='col-sm-6'>
                             <p><strong>Prep_time :</strong> {{post.time_prep}}</p>
                             <p><strong>Ingredients</strong></p>
-                            <p>{{post.ingredient}}</p>
+                            <p style="white-space: pre-line;">{{post.ingredient}}</p>
 
 
                         </div>
@@ -107,7 +107,7 @@
 
                     <div>
                         <p class="text-center"><strong>Procedure</strong></p>
-                        <p class="text-center">{{post.process}}</p>
+                        <p class="text-center" style="white-space: pre-line;">{{post.process}}</p>
                     </div>
 
                 </div>

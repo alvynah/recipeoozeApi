@@ -5,7 +5,7 @@
         <div class="col-md-6">
             <div class="">
                 <div class="card-body loginForm">
-                    <form action="{% url 'login' %}" method="post" novalidate>
+                    <form action="{% url 'login' %}" method="post" validate>
                         {% csrf_token%} {{ form}}
                         <button type="submit" class="btn"> Log In</button>
                     </form>
